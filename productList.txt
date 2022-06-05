@@ -13,5 +13,5 @@ bread   - 1
 potato  - 20
 carrots - 3
 milk    - 1
-candy - 5
-coke - 2
+candy - 10
+coke - 4
