@@ -1,0 +1,4 @@
+beer - 5
+vodka - 7
+chips - 9
+cigarettes -10
