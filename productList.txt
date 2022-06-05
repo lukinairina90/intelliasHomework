@@ -1,0 +1,2 @@
+candy - 5
+coke - 2
