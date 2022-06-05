@@ -1,3 +1,5 @@
+glasses - 1
+gin - 1
 bananas - 12
 apples  - 10
 oranges - 5
