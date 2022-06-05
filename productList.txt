@@ -1,3 +1,7 @@
+beer - 5
+vodka - 7
+chips - 9
+cigarettes -10
 glasses - 1
 gin - 1
 bananas - 12
