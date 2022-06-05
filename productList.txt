@@ -1,2 +1,11 @@
 glasses - 1
 gin - 1
+bananas - 12
+apples  - 10
+oranges - 5
+cucumbers - 3
+eggs    - 10
+bread   - 1
+potato  - 20
+carrots - 3
+milk    - 1
