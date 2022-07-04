@@ -96,13 +96,13 @@ func main() {
 	fmt.Println("----------------------------------------------Task e---------------------------------------------------")
 	fmt.Println()
 
-	user1 := NewUser("f7d8sjnw1", "example1@gmail.com", "Karl", "Dekert", "KarlD", 23)
-	user2 := NewUser("f7d8sjnw2", "example2@gmail.com", "Jan", "Vslasov", "JanV", 19)
-	user3 := NewUser("f7d8sjnw3", "example3@gmail.com", "Monica", "Ruzh", "Mora", 25)
-	user4 := NewUser("f7d8sjnw4", "example4@gmail.com", "John", "Dou", "Jou", 60)
-	user5 := NewUser("f7d8sjnw5", "example5@gmail.com", "Mark", "Twen", "banana", 25)
-
-	usersArr := []User{user1, user2, user3, user4, user5}
+	usersArr := []User{
+		NewUser("f7d8sjnw1", "example1@gmail.com", "Karl", "Dekert", "KarlD", 23),
+		NewUser("f7d8sjnw2", "example2@gmail.com", "Jan", "Vslasov", "JanV", 19),
+		NewUser("f7d8sjnw3", "example3@gmail.com", "Monica", "Ruzh", "Mora", 25),
+		NewUser("f7d8sjnw4", "example4@gmail.com", "John", "Dou", "Jou", 60),
+		NewUser("f7d8sjnw5", "example5@gmail.com", "Mark", "Twen", "banana", 25),
+	}
 
 	fullName, nick := OldestTwenty(usersArr)
 	fmt.Printf("fullName: %s\nnick:  %s", fullName, nick)
