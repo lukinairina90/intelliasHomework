@@ -21,13 +21,16 @@ const (
 	catEating        = 7
 	cowEating        = 25
 	weightFeedForDog = 5
+
+	dogType = "dog"
+	catType = "cat"
+	cowType = "cow"
 )
 
 type Dog struct {
-	name       string
-	weight     int
-	kind       string
-	animalType string
+	name   string
+	weight int
+	kind   string
 }
 
 func (d Dog) CalcFeedWeight() int {
@@ -35,14 +38,13 @@ func (d Dog) CalcFeedWeight() int {
 }
 
 func (d Dog) String() string {
-	return printInfo(d.animalType, d.weight, d.CalcFeedWeight())
+	return printInfo(dogType, d.weight, d.CalcFeedWeight())
 }
 
 type Cat struct {
-	name       string
-	weight     int
-	kind       string
-	animalType string
+	name   string
+	weight int
+	kind   string
 }
 
 func (c Cat) CalcFeedWeight() int {
@@ -50,14 +52,13 @@ func (c Cat) CalcFeedWeight() int {
 }
 
 func (c Cat) String() string {
-	return printInfo(c.animalType, c.weight, c.CalcFeedWeight())
+	return printInfo(catType, c.weight, c.CalcFeedWeight())
 }
 
 type Cow struct {
-	name       string
-	weight     int
-	kind       string
-	animalType string
+	name   string
+	weight int
+	kind   string
 }
 
 func (co Cow) CalcFeedWeight() int {
@@ -65,7 +66,7 @@ func (co Cow) CalcFeedWeight() int {
 }
 
 func (co Cow) String() string {
-	return printInfo(co.animalType, co.weight, co.CalcFeedWeight())
+	return printInfo(cowType, co.weight, co.CalcFeedWeight())
 }
 
 type AnimalInfoPrinter interface {
@@ -74,19 +75,19 @@ type AnimalInfoPrinter interface {
 }
 
 func main() {
-	animals := make([]AnimalInfoPrinter, 0)
+	animals := make([]AnimalInfoPrinter, 0, 11)
 	animals = append(animals,
-		Dog{"Lacky", 10, "doberman", "dog"},
-		Dog{"Bobick", 113, "husky", "dog"},
-		Dog{"Lis", 14, "dachshund", "dog"},
-		Dog{"Ben", 5, "labrador", "dog"},
-		Cat{"Myrka", 10, "siam", "cat"},
-		Cat{"Glasha", 10, "persian", "cat"},
-		Cat{"Tomas", 10, "british", "cat"},
-		Cat{"Murchik", 10, "bengal", "cat"},
-		Cow{"Marta", 150, "black", "cow"},
-		Cow{"Zorka", 100, "white", "cow"},
-		Cow{"Breez", 300, "red", "cow"},
+		Dog{"Lacky", 10, "doberman"},
+		Dog{"Bobick", 113, "husky"},
+		Dog{"Lis", 14, "dachshund"},
+		Dog{"Ben", 5, "labrador"},
+		Cat{"Myrka", 10, "siam"},
+		Cat{"Glasha", 10, "persian"},
+		Cat{"Tomas", 10, "british"},
+		Cat{"Murchik", 10, "bengal"},
+		Cow{"Marta", 150, "black"},
+		Cow{"Zorka", 100, "white"},
+		Cow{"Breez", 300, "red"},
 	)
 
 	PrintFarmInfo(animals)
@@ -95,7 +96,7 @@ func main() {
 func PrintFarmInfo(f []AnimalInfoPrinter) {
 	amount := 0
 	for _, ftr := range f {
-		fmt.Printf(ftr.String())
+		fmt.Println(ftr)
 		amount += ftr.CalcFeedWeight()
 	}
 
@@ -104,5 +105,5 @@ func PrintFarmInfo(f []AnimalInfoPrinter) {
 }
 
 func printInfo(animalType string, weight, totalAmount int) string {
-	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg\n", animalType, weight, totalAmount)
+	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg", animalType, weight, totalAmount)
 }
