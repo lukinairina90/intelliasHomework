@@ -68,10 +68,6 @@ func (co Cow) String() string {
 	return printInfo(co.animalType, co.weight, co.CalcFeedWeight())
 }
 
-func printInfo(animalType string, weight, totalAmount int) string {
-	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg\n", animalType, weight, totalAmount)
-}
-
 type AnimalInfoPrinter interface {
 	fmt.Stringer
 	CalcFeedWeight() int
@@ -105,4 +101,8 @@ func PrintFarmInfo(f []AnimalInfoPrinter) {
 
 	fmt.Println()
 	fmt.Printf("the total amount of feed per month required for your farm = %dkg\n", amount)
+}
+
+func printInfo(animalType string, weight, totalAmount int) string {
+	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg\n", animalType, weight, totalAmount)
 }
