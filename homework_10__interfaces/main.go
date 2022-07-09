@@ -16,21 +16,26 @@ import (
 //та скільки їжі треба для того щоб її прогодувати ця функція також моє повертати сумму кг корму на всю ферму
 //для подальшого виводу у консоль
 
+const (
+	dogEating        = 10
+	catEating        = 7
+	cowEating        = 25
+	weightFeedForDog = 5
+)
+
 type Dog struct {
 	name       string
 	weight     int
 	kind       string
 	animalType string
-	amountFeed int
-	weightFeed int
 }
 
 func (d Dog) CalcFeedWeight() int {
-	return (d.amountFeed / d.weightFeed) * d.weight
+	return (dogEating / weightFeedForDog) * d.weight
 }
 
 func (d Dog) String() string {
-	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg", d.animalType, d.weight, d.CalcFeedWeight())
+	return printInfo(d.animalType, d.weight, d.CalcFeedWeight())
 }
 
 type Cat struct {
@@ -38,16 +43,14 @@ type Cat struct {
 	weight     int
 	kind       string
 	animalType string
-	amountFeed int
-	weightFeed int
 }
 
 func (c Cat) CalcFeedWeight() int {
-	return c.weight * c.amountFeed
+	return c.weight * catEating
 }
 
 func (c Cat) String() string {
-	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg", c.animalType, c.weight, c.CalcFeedWeight())
+	return printInfo(c.animalType, c.weight, c.CalcFeedWeight())
 }
 
 type Cow struct {
@@ -55,70 +58,51 @@ type Cow struct {
 	weight     int
 	kind       string
 	animalType string
-	amountFeed int
-	weightFeed int
 }
 
 func (co Cow) CalcFeedWeight() int {
-	return co.weight * co.amountFeed
+	return co.weight * cowEating
 }
 
 func (co Cow) String() string {
-	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg", co.animalType, co.weight, co.CalcFeedWeight())
+	return printInfo(co.animalType, co.weight, co.CalcFeedWeight())
 }
 
-type FeetCalculator interface {
+type AnimalInfoPrinter interface {
+	fmt.Stringer
 	CalcFeedWeight() int
 }
 
-type AnimalPrinter interface {
-	fmt.Stringer
-	FeetCalculator
-}
-
 func main() {
-	dogs := []Dog{
-		{"Lacky", 10, "doberman", "dog", 10, 5},
-		{"Bobick", 113, "husky", "dog", 10, 5},
-		{"Lis", 14, "dachshund", "dog", 10, 5},
-		{"Ben", 5, "labrador", "dog", 10, 5},
-	}
+	animals := make([]AnimalInfoPrinter, 0)
+	animals = append(animals,
+		Dog{"Lacky", 10, "doberman", "dog"},
+		Dog{"Bobick", 113, "husky", "dog"},
+		Dog{"Lis", 14, "dachshund", "dog"},
+		Dog{"Ben", 5, "labrador", "dog"},
+		Cat{"Myrka", 10, "siam", "cat"},
+		Cat{"Glasha", 10, "persian", "cat"},
+		Cat{"Tomas", 10, "british", "cat"},
+		Cat{"Murchik", 10, "bengal", "cat"},
+		Cow{"Marta", 150, "black", "cow"},
+		Cow{"Zorka", 100, "white", "cow"},
+		Cow{"Breez", 300, "red", "cow"},
+	)
 
-	cats := []Cat{
-		{"Myrka", 10, "siam", "cat", 7, 1},
-		{"Glasha", 10, "persian", "cat", 7, 1},
-		{"Tomas", 10, "british", "cat", 7, 1},
-		{"Murchik", 10, "bengal", "cat", 7, 1},
-	}
-	cows := []Cow{
-		{"Marta", 150, "black", "cow", 25, 1},
-		{"Zorka", 100, "white", "cow", 25, 1},
-		{"Breez", 300, "red", "cow", 25, 1},
-	}
-
-	animals := make([]AnimalPrinter, 0, len(dogs))
-	for _, dog := range dogs {
-		animals = append(animals, dog)
-	}
-
-	for _, cat := range cats {
-		animals = append(animals, cat)
-	}
-
-	for _, cow := range cows {
-		animals = append(animals, cow)
-	}
-
-	PrintFarm(animals)
+	PrintFarmInfo(animals)
 }
 
-func PrintFarm(f []AnimalPrinter) {
+func PrintFarmInfo(f []AnimalInfoPrinter) {
 	amount := 0
 	for _, ftr := range f {
-		fmt.Println(ftr.String())
+		fmt.Printf(ftr.String())
 		amount += ftr.CalcFeedWeight()
 	}
 
 	fmt.Println()
 	fmt.Printf("the total amount of feed per month required for your farm = %dkg\n", amount)
+}
+
+func printInfo(animalType string, weight, totalAmount int) string {
+	return fmt.Sprintf("%q -  weight: %dkg, food intake per month: %dkg\n", animalType, weight, totalAmount)
 }
